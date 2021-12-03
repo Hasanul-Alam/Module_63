@@ -25,6 +25,18 @@ app.get('/users/:id', (req, res) => {
     res.send(user);
 });
 
+app.get('/users', (req, res)=>{
+    const search = req.query.search;
+    if(search){
+        const searchResult = users.filter(user => user.name.toLocaleLowerCase().includes(search));
+        res.send(searchResult);
+    }
+    else{
+        res.send("Search result does not exist into the database.");
+    }
+    res.send(users);
+});
+
 app.listen(port, ()=>{
     console.log("Listening to port ", port);
 });
